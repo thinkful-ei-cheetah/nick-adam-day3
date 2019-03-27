@@ -132,3 +132,58 @@ function decodeWords(codedString) {
 }
 
 console.log(decodeWords(code));
+
+// Factory functions with LOTR ---------------------------------------------------------------------
+
+
+function createCharacter(name, nickName, race, origin, attack, defense, weapon){
+    return {
+        name,
+        nickName,
+        race,
+        origin,
+        attack,
+        defense,
+        weapon,
+        evaluateFight: function(character){
+            let damageTaken = character.attack - this.defense;
+            let damageGiven = this.attack - character.defense;
+            if(damageTaken < 0){
+                damageTaken = 0;
+            }
+            if(damageGiven < 0){
+                damageGiven = 0;
+            }
+            return `Your Opponent takes ${damageGiven} and your receive ${damageTaken} damage`;
+        },
+        describe: function(){
+           return `${this.name} is a ${this.race} from ${this.origin} who uses ${this.weapon}`;
+        }
+    };
+    // function describe(){
+    //     `${this.name} is a ${this.race} from ${this.origin}`;
+    // }
+}
+const characters = [
+    createCharacter('Gandalf the White', 'Gandalf', 'Wizard','Middle Earth', 10, 6, 'Staff'), 
+    createCharacter('Bilbo Baggins', 'Bilbo','Hobbit', 'Shire', 2,1,'ring'),
+    createCharacter('Frodo Baggins', 'Frodo', 'Hobbit', 'Shire', 3,2, 'String and Barrow Blade'),
+    createCharacter('Aragorn Son of Arathorn', 'Aragorn', 'Man', 'Dunnedain', 6,8, 'Anduril'),
+    createCharacter('Legolas', 'Legolas', 'Elf', 'Mirkwood', 8,5, 'Bow and Arrow'),
+    createCharacter('Arwen Undomiel', 'Arwen', 'Half-Elf', 'Rivendell', 2, 8), 'Hadhafang'
+];
+const findAragorn = characters.find(function(item){
+    return item.nickName === 'Aragorn';
+});
+
+const findHobbits = characters.filter(function(item){
+    return item.race === 'Hobbit';
+});
+
+const fighters = characters.filter(function(item){
+    return item.attack > 5;
+})
+console.log(findAragorn.describe());
+//console.log(characters);
+// console.log(findHobbits);
+//console.log(fighters);
