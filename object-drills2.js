@@ -52,5 +52,44 @@ function findById(items, idNum) {
 // console.log(findById(scratchData, 22));
 
 function validateKeys(object, expectedKeys) {
-    
+  //object has all and only keys in expectedKeys[]
+  const actualKeys = Object.keys(object);
+  console.log(actualKeys);
+  console.log(expectedKeys);
+
+  if(actualKeys.length !== expectedKeys.length) {
+    return false;
+  }
+
+  for(let i=0; i<actualKeys.length; i++) {
+    if(!expectedKeys.includes(actualKeys[i])) {
+      return false;
+    }
+  }
+//   if(actualKeys === expectedKeys) {
+//     return true;
+//   } else {
+//     console.log('im here');
+//     return false;
+//   }
+  return true;
 }
+
+const objectA = {
+  id: 2,
+  name: 'Jane Doe',
+  age: 34,
+  city: 'Chicago',
+};
+  
+// running the function with `objectB` and `expectedKeys`
+// should return `false`
+const objectB = {
+  id: 3,
+  age: 33,
+  city: 'Peoria',
+};
+  
+const expectedKeys = ['city','id', 'name', 'age'];
+
+console.log(validateKeys(objectA, expectedKeys));
