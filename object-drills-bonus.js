@@ -13,20 +13,26 @@ const HEROES = [
 ];
 
 function findOne(arr, query) {
-  return arr.find((element) => {
+  const queryKeys = Object.keys(query);
+  if(!queryKeys) return null;
+
+  const found = arr.find((element) => {
     // compare element to query for exact match (key/value)
     // see if all keys in query exist in element
     // if all keys exist..see if values match element[key](element's value)
     //    then return element
     //    else return null
-    const queryKeys = Object.keys(query);
-    const elementKeys = Object.keys(element);
-    let found = false;
-
-    
-
-    return element.id === 6;    
+    for(let i=0; i<queryKeys.length; i++) {
+      if(element[queryKeys[i]] !== query[queryKeys[i]]) return false;
+    }
+    return true;
   });
+
+  return found || null;
 }
 
-console.log(findOne(HEROES, { id: 1, name:'Aquaman' }));
+console.log(findOne(HEROES, { id: 1 }));
+console.log(findOne(HEROES, { id: 10 }));
+console.log(findOne(HEROES, { id: 2, name: 'Aquaman' }));
+console.log(findOne(HEROES, { id: 5, squad: 'Justice League' }));
+console.log(findOne(HEROES, { squad: 'Justice League' }));
